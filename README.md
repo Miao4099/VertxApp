@@ -13,3 +13,76 @@ B.对使用者的要求：
 1.理解异步概念
 2.理解sql语句
 3.理解json
+
+C.快速上手
+1.定义main
+    //读取配置1000.json启动	
+    WorkerMaster.initSystem("1000") { v, cfg->
+        //初始化Sql worker
+        var sql=AppMySql().setup(getCfg("worker_sql"))
+
+        //初始化Http server worker
+        AppHttpAgent().setup(getCfg("worker_agent"))
+
+    }
+
+2.  定义AppHttpAgent
+    override fun addHandler(router: Router) {
+        //定义/admin/slaver/*和/slaver/* 两个路径,收到的消息打包后转发到名字叫sql的worker
+	    // /admin/slaver/add和/slaver/add 都会转化为MSG_SLAVER_ADD发出到名字叫sql的worker
+	    RestfulAny("/admin","/slaver",router,this,"sql")
+    }
+
+3.  定义AppMySql 
+    override fun start(config: String): WorkShop {
+        super.start(config)
+	//初始化JDBC客户端
+        mClient = JDBCClient.createNonShared(Vertx(),AnyJson(config))
+
+	//注册消息处理
+        Dispatcher()
+                .add("MSG_USER_UPDATE", this::msgUserUpdate)
+    }
+4.  AppMySql中定义消息处理
+fun AppMySql.msgUserUpdate(key: String, msg: JsonObject, message: Message<JsonObject>):Msg {
+    return tryDo(message) {
+
+	//读取msg中传入的各种参数并进行校验后形成sql语句，校验失败的话直接返回各种校验异常结果
+        var sql = sqlUser.sql()
+                .set<String>("user_id", msg, ValId())
+                .set<String>("user_avatar", msg,ValImage("头像",true))
+                .set<String>("user_name", msg, ValName())
+                .set<String>("user_role", msg, ValRole())
+                .set<String>("memo", msg, ValMemo())
+                .set<Int>("user_sex", msg,ValSex(true))
+                .set("user_password", IDGen.md5(password!!))
+                .getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
+
+	//业务处理
+        transaction(sql.toArray(), message)
+    }
+}
+
+5.对应的配置文件1000.json
+{
+  "host": "127.0.0.1",
+  "group_name": "com.runyu.blog",
+  "cfg_log": "config/log/log4j2.xml",
+
+  "worker_sql": {
+    "work_id": "sql",
+    "max_pool_size": 30,
+    "user": "root",
+    "password": "123456",
+    "url": "jdbc:mysql://127.0.0.1:3306/blog_pro?serverTimezone=GMT%2B8&characterEncoding=utf8"
+  },
+ 
+  "worker_agent": {
+    "work_id": "agent",
+    "ssl_on": true,
+    "jks": "config/api.xxx.jks",
+    "jks_password": "1161",
+    "port": 81
+  }
+
+}
