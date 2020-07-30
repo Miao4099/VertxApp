@@ -1,7 +1,6 @@
 # VertxApp
-A.特点
-    VertxApp是Vertx的Kotlin包装，使用简单、扩展方便。  
-    这个框架是用于快速开发Web App，基于Kotlin编写，基于异步的Vertx，建立了一种应用开发模式，已将很多Vertx的细节隐藏起来，让使用者可以专注于自己的实际内容开发，而不用学习冗长的基本知识。是一个高度定制化的、适合思路清晰的开发者的一个框架。特点总结如下：  
+#简介
+    VertxApp是Vertx的Kotlin包装，使用简单、扩展方便。这个框架是用于快速开发Web App，基于Kotlin编写，基于异步的Vertx，建立了一种应用开发模式，已将很多Vertx的细节隐藏起来，让使用者可以专注于自己的实际内容开发，而不用学习冗长的基本知识。是一个高度定制化的、适合思路清晰的开发者的一个框架。特点总结如下：
 1.生成的最终文件是jar，包含客户应用与web server，java -xxx.jar 即可以全套运行，管理方便;  
 2.使用Gradle作为包管理，使用时可以只导入一个jar包就行  
 3.99%的http请求统一封装为post方式，使用输入和输出都是json，即让客户开发集中于“处理一个输入的json，并输出一个处理过的json”  
@@ -9,14 +8,15 @@ A.特点
 5.全异步处理  
 6.提供了关于json、validator、sql，redis，微信message等二次包装后的大量工具类  
 
-B.对使用者的要求：  
+#对使用者的要求：  
 1.理解异步概念  
 2.理解sql语句  
 3.理解json  
 
-C.快速上手
+#快速上手
 1.定义main
-    //读取配置1000.json启动	
+    //读取配置1000.json启动
+	
     WorkerMaster.initSystem("1000") { v, cfg->
         //初始化Sql worker
         var sql=AppMySql().setup(getCfg("worker_sql"))
@@ -27,6 +27,8 @@ C.快速上手
     }
 
 2.  定义AppHttpAgent
+
+
     override fun addHandler(router: Router) {
         //定义/admin/slaver/*和/slaver/* 两个路径,收到的消息打包后转发到名字叫sql的worker
 	    // /admin/slaver/add和/slaver/add 都会转化为MSG_SLAVER_ADD发出到名字叫sql的worker
@@ -34,55 +36,60 @@ C.快速上手
     }
 
 3.  定义AppMySql 
+
+
     override fun start(config: String): WorkShop {
         super.start(config)
-	//初始化JDBC客户端
+	    //初始化JDBC客户端
         mClient = JDBCClient.createNonShared(Vertx(),AnyJson(config))
 
-	//注册消息处理
+	    //注册消息处理
         Dispatcher()
                 .add("MSG_USER_UPDATE", this::msgUserUpdate)
     }
+
 4.  AppMySql中定义消息处理
-fun AppMySql.msgUserUpdate(key: String, msg: JsonObject, message: Message<JsonObject>):Msg {
-    return tryDo(message) {
 
-	//读取msg中传入的各种参数并进行校验后形成sql语句，校验失败的话直接返回各种校验异常结果
-        var sql = sqlUser.sql()
-                .set<String>("user_id", msg, ValId())
-                .set<String>("user_avatar", msg,ValImage("头像",true))
-                .set<String>("user_name", msg, ValName())
-                .set<String>("user_role", msg, ValRole())
-                .set<String>("memo", msg, ValMemo())
-                .set<Int>("user_sex", msg,ValSex(true))
-                .set("user_password", IDGen.md5(password!!))
-                .getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
+		fun AppMySql.msgUserUpdate(key: String, msg: JsonObject, message: Message<JsonObject>):Msg {
 
-	//业务处理
-        transaction(sql.toArray(), message)
-    }
-}
+			return tryDo(message) {
+
+		    //读取msg中传入的各种参数并进行校验后形成sql语句，校验失败的话直接返回各种校验异常结果
+			var sql = sqlUser.sql()
+					.set<String>("user_id", msg, ValId())
+					.set<String>("user_avatar", msg,ValImage("头像",true))
+					.set<String>("user_name", msg, ValName())
+					.set<String>("user_role", msg, ValRole())
+					.set<String>("memo", msg, ValMemo())
+					.set<Int>("user_sex", msg,ValSex(true))
+					.set("user_password", IDGen.md5(password!!))
+					.getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
+
+			//业务处理
+			transaction(sql.toArray(), message)
+    		}
+		}
 
 5.对应的配置文件1000.json
-{
-  "host": "127.0.0.1",
-  "group_name": "com.runyu.blog",
-  "cfg_log": "config/log/log4j2.xml",
 
-  "worker_sql": {
-    "work_id": "sql",
-    "max_pool_size": 30,
-    "user": "root",
-    "password": "123456",
-    "url": "jdbc:mysql://127.0.0.1:3306/blog_pro?serverTimezone=GMT%2B8&characterEncoding=utf8"
-  },
- 
-  "worker_agent": {
-    "work_id": "agent",
-    "ssl_on": true,
-    "jks": "config/api.xxx.jks",
-    "jks_password": "1161",
-    "port": 81
-  }
+	{
+	  "host": "127.0.0.1",
+	  "group_name": "com.runyu.blog",
+	  "cfg_log": "config/log/log4j2.xml",
 
-}
+	  "worker_sql": {
+		"work_id": "sql",
+		"max_pool_size": 30,
+		"user": "root",
+		"password": "123456",
+		"url": "jdbc:mysql://127.0.0.1:3306/blog_pro?serverTimezone=GMT%2B8&characterEncoding=utf8"
+	  },
+
+	  "worker_agent": {
+		"work_id": "agent",
+		"ssl_on": true,
+		"jks": "config/api.xxx.jks",
+		"jks_password": "1161",
+		"port": 81
+	  }
+	}
