@@ -96,8 +96,9 @@
 
 ## 扩展功能
 1.怎样增加字段校验功能  
-  tryDo用于捕获Validator产生的异常，并输出Validator校验失败的具体原因。用户只需要根据派生Validator,自定义Valiator类并传入set接口就行，如：  
-	  open class ValSlaverKind() : Validator() {
+  tryDo用于捕获Validator产生的异常，并输出Validator校验失败的具体原因。用户只需要根据派生Validator,自定义Valiator类并传入set接口就行，如：
+  
+    	open class ValSlaverKind() : Validator() {
 	    override fun validate(value: Any?):Any? {
 		if (null == value)
 		    throw ValException("评论种类不能为空")
