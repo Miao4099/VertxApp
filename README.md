@@ -95,8 +95,8 @@
 
 
 ## 扩展功能
-1.怎样增加字段校验功能
-  tryDo用于Validator产生的异常，并输入Validator校验失败的具体原因。用户只需要根据派生Validator,自定义Valiator类并传入set接口就行，如：
+1.怎样增加字段校验功能  
+  tryDo用于捕获Validator产生的异常，并输出Validator校验失败的具体原因。用户只需要根据派生Validator,自定义Valiator类并传入set接口就行，如：
 	  open class ValSlaverKind() : Validator() {
 	    override fun validate(value: Any?):Any? {
 		if (null == value)
@@ -109,9 +109,9 @@
 	    }
 	  }
 	  
-	  //定义后传入set
-	  .set<String>("slaver_kind", msg, ValSlaverKind())
+	  //定义后传入set  
+    	 .set<String>("slaver_kind", msg, ValSlaverKind())
 其中：  
 a)判断非空和字段只有是product和raw其中一个才满足要求  
-b)return返回的是合法的数据
-c)可在return时返回处理过的数据，如将原始的整型数据改为字符串类型
+b)return返回的是合法的数据  
+c)可在return时返回处理过的数据，如将原始的整型数据改为字符串类型  
