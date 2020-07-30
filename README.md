@@ -117,6 +117,8 @@ a)判断非空和字段只有是product和raw其中一个才满足要求
 b)return返回的是合法的数据  
 c)可在return时返回处理过的数据，如将原始的整型数据改为字符串类型  
 
+### 其它扩展功能地址[others.md](https://github.com/Miao4099/VertxApp/edit/master/others.md "others.md")
+
 ## 引用声明
 为了使用方便，库中已经直接加入和引用了第三方的源代码，有清楚作者者请通知我修改如下声明：  
 1.IDGen，已查不到第三方的信息，从网上直接引用java代码并做了转换  
