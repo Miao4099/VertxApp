@@ -17,14 +17,14 @@
 1.  定义main
     //读取配置1000.json启动  
 	
-    WorkerMaster.initSystem("1000") { v, cfg->  
-        //初始化Sql worker  
-        var sql=AppMySql().setup(getCfg("worker_sql"))  
-  
-        //初始化Http server worker
-        AppHttpAgent().setup(getCfg("worker_agent"))
+	    WorkerMaster.initSystem("1000") { v, cfg->  
+		//初始化Sql worker  
+		var sql=AppMySql().setup(getCfg("worker_sql"))  
 
-    }
+		//初始化Http server worker
+		AppHttpAgent().setup(getCfg("worker_agent"))
+
+	    }
 
 2.  定义AppHttpAgent
 
