@@ -15,12 +15,12 @@
 
 ## 快速上手  
 1.  定义main
-    //读取配置1000.json启动
+    //读取配置1000.json启动  
 	
-    WorkerMaster.initSystem("1000") { v, cfg->
-        //初始化Sql worker
-        var sql=AppMySql().setup(getCfg("worker_sql"))
-
+    WorkerMaster.initSystem("1000") { v, cfg->  
+        //初始化Sql worker  
+        var sql=AppMySql().setup(getCfg("worker_sql"))  
+  
         //初始化Http server worker
         AppHttpAgent().setup(getCfg("worker_agent"))
 
