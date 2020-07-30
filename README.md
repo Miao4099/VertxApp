@@ -53,19 +53,19 @@
 
 			return tryDo(message) {
 
-		    //读取msg中传入的各种参数并进行校验后形成sql语句，校验失败的话直接返回各种校验异常结果
-			var sql = sqlUser.sql()
-					.set<String>("user_id", msg, ValId())
-					.set<String>("user_avatar", msg,ValImage("头像",true))
-					.set<String>("user_name", msg, ValName())
-					.set<String>("user_role", msg, ValRole())
-					.set<String>("memo", msg, ValMemo())
-					.set<Int>("user_sex", msg,ValSex(true))
-					.set("user_password", IDGen.md5(password!!))
-					.getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
+				//读取msg中传入的各种参数并进行校验后形成sql语句，校验失败的话直接返回各种校验异常结果
+				var sql = sqlUser.sql()
+						.set<String>("user_id", msg, ValId())
+						.set<String>("user_avatar", msg,ValImage("头像",true))
+						.set<String>("user_name", msg, ValName())
+						.set<String>("user_role", msg, ValRole())
+						.set<String>("memo", msg, ValMemo())
+						.set<Int>("user_sex", msg,ValSex(true))
+						.set("user_password", IDGen.md5(password!!))
+						.getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
 
-			//业务处理
-			transaction(sql.toArray(), message)
+				//业务处理
+				transaction(sql.toArray(), message)
 			}
 		}
 
