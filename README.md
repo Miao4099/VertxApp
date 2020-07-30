@@ -28,25 +28,24 @@
 
 2.  定义AppHttpAgent
 
-
-    override fun addHandler(router: Router) {
-        //定义/admin/slaver/*和/slaver/* 两个路径,收到的消息打包后转发到名字叫sql的worker
-	    // /admin/slaver/add和/slaver/add 都会转化为MSG_SLAVER_ADD发出到名字叫sql的worker
-	    RestfulAny("/admin","/slaver",router,this,"sql")
-    }
+	    override fun addHandler(router: Router) {
+		//定义/admin/slaver/*和/slaver/* 两个路径,收到的消息打包后转发到名字叫sql的worker
+		    // /admin/slaver/add和/slaver/add 都会转化为MSG_SLAVER_ADD发出到名字叫sql的worker
+		    RestfulAny("/admin","/slaver",router,this,"sql")
+	    }
 
 3.  定义AppMySql 
 
 
-    override fun start(config: String): WorkShop {
-        super.start(config)
-	    //初始化JDBC客户端
-        mClient = JDBCClient.createNonShared(Vertx(),AnyJson(config))
+	    override fun start(config: String): WorkShop {
+		super.start(config)
+		    //初始化JDBC客户端
+		mClient = JDBCClient.createNonShared(Vertx(),AnyJson(config))
 
-	    //注册消息处理
-        Dispatcher()
-                .add("MSG_USER_UPDATE", this::msgUserUpdate)
-    }
+		    //注册消息处理
+		Dispatcher()
+			.add("MSG_USER_UPDATE", this::msgUserUpdate)
+	    }
 
 4.  AppMySql中定义消息处理
 
@@ -67,29 +66,29 @@
 
 			//业务处理
 			transaction(sql.toArray(), message)
-    		}
+			}
 		}
 
 5.对应的配置文件1000.json
 
-	{
-	  "host": "127.0.0.1",
-	  "group_name": "com.runyu.blog",
-	  "cfg_log": "config/log/log4j2.xml",
+		{
+		  "host": "127.0.0.1",
+		  "group_name": "com.runyu.blog",
+		  "cfg_log": "config/log/log4j2.xml",
 
-	  "worker_sql": {
-		"work_id": "sql",
-		"max_pool_size": 30,
-		"user": "root",
-		"password": "123456",
-		"url": "jdbc:mysql://127.0.0.1:3306/blog_pro?serverTimezone=GMT%2B8&characterEncoding=utf8"
-	  },
+		  "worker_sql": {
+			"work_id": "sql",
+			"max_pool_size": 30,
+			"user": "root",
+			"password": "123456",
+			"url": "jdbc:mysql://127.0.0.1:3306/blog_pro?serverTimezone=GMT%2B8&characterEncoding=utf8"
+		  },
 
-	  "worker_agent": {
-		"work_id": "agent",
-		"ssl_on": true,
-		"jks": "config/api.xxx.jks",
-		"jks_password": "1161",
-		"port": 81
-	  }
-	}
+		  "worker_agent": {
+			"work_id": "agent",
+			"ssl_on": true,
+			"jks": "config/api.xxx.jks",
+			"jks_password": "1161",
+			"port": 81
+		  }
+		}
