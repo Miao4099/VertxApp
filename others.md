@@ -3,8 +3,20 @@
 ## 2.怎样添加一个自定义shop
 Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。在程序中，可以创建一个或多个Agent shop接收不同端口的请求，然后将其打包为统一格式的json发给后方的Task Shop，task shop就是完成你的任务的shop，可以多个。具体框架参考下图  
         ![image](https://github.com/Miao4099/VertxApp/blob/master/images/framework.png)   
-更详细的步骤可以参考 “快速上手” 部分
+更详细的步骤可以参考 “快速上手” 部分。每个新的shop继承WorkShop  
+    
+            override fun setup(config:String,instanceCount:Int): WorkShop {
+                super.start(config)
+                //创建JDBC client        
+                mClient = JDBCClient.createNonShared(Vertx(),AnyJson(config))
 
+                //注册消息处理接口，如MSG_USER_ADD消息由msgUserAdd接口处理        
+                Dispatcher()
+                        .add("MSG_USER_ADD", this::msgUserAdd)
+            }
+    
+    
+    
 ## 3.怎样读取输入json中的数据
         var sql = sqlUser.sql()
                 .set<String>("user_id", msg, ValId())
