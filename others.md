@@ -21,6 +21,7 @@ set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读�
 ## 4.数据库字段名称映射
 
 一般来说，前端和后端的使用的字段名称是不太一样的，有的是因为设计原因、有的是故意保密。无论何种原因，后端对做这种转换是深恶痛绝的，而且会被前端的代码所影响要反复修改，前端也是面临类似的问题。
+
         var sql = sqlUser.sql()
                 .set<String>("user_id", msg, ValId())
                 .set<String>("user_avatar", msg,ValImage("头像",true))
