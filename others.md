@@ -42,30 +42,30 @@ set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读�
 ## 5.间接操作复杂数据的方式
 上面的第4个问题，是操作一张简单的表。如果比较复杂的数据，比如是多个数据表join查出的数据，还需要进行分页、过滤 、排序处理，也可以简单的结合使用from接口，并使用标准的过滤器、排序器、分页器解析。
 
-fun AppMySql.msgMachineList(key: String, msg: JsonObject, message: Message<JsonObject>): Msg {
-    return tryDo(message) {
-        //获得标准的分页请求参数 
-        var pi=msg.pageInfo()
+        fun AppMySql.msgMachineList(key: String, msg: JsonObject, message: Message<JsonObject>): Msg {
+            return tryDo(message) {
+                //获得标准的分页请求参数 
+                var pi=msg.pageInfo()
 
-        //解析json获取排序参数，输出结果默认按create_time字段进行降序排序
-        var qs=sqlMachine.qs(msg, QuerySorter.Rule("create_time", "desc"))
-        
-        //from是将一个复杂的sql语句中直接作为一张表来处理
-        var sql = sqlMachine.sql()
-                .from("SELECT H.*,K.NAME as shop_name,K.contact,K.phone AS contact_phone,K.slogan FROM (\n" +
-                        "SELECT machine_number,`status`,remark,province,city,district,address,D.*FROM (\n" +
-                        "SELECT A.machine_id,machine_number,province,city,district,address,B.`status`,B.remark FROM                                             machine_location A RIGHT JOIN machines B ON A.machine_id=B.id) C LEFT JOIN machine_setting D ON                                 C.machine_id=D.machine_id GROUP BY machine_number) H left JOIN store K ON                                                               K.machine_id=H.machine_id ")
-                .getList(sqlMachine.fs(msg), qs, pi)//解析json获取过滤参数后，与qs，pi一起输入生成产生list的sql语句
-        
-        //查询出列表
-        listQuery(sql, message,{json->
-            //分析输出的结果，结果是json，里面包含数据的array    
-            var qr=QueryResult(json)
-            //每一行输出都做部分处理
-            qr.loopRows { addNewsField(it) }
-        })
-    }
-}
+                //解析json获取排序参数，输出结果默认按create_time字段进行降序排序
+                var qs=sqlMachine.qs(msg, QuerySorter.Rule("create_time", "desc"))
+
+                //from是将一个复杂的sql语句中直接作为一张表来处理
+                var sql = sqlMachine.sql()
+                        .from("SELECT H.*,K.NAME as shop_name,K.contact,K.phone AS contact_phone,K.slogan FROM (\n" +
+                                "SELECT machine_number,`status`,remark,province,city,district,address,D.*FROM (\n" +
+                                "SELECT A.machine_id,machine_number,province,city,district,address,B.`status`,B.remark FROM                                             machine_location A RIGHT JOIN machines B ON A.machine_id=B.id) C LEFT JOIN machine_setting D ON                                 C.machine_id=D.machine_id GROUP BY machine_number) H left JOIN store K ON                                                               K.machine_id=H.machine_id ")
+                        .getList(sqlMachine.fs(msg), qs, pi)//解析json获取过滤参数后，与qs，pi一起输入生成产生list的sql语句
+
+                //查询出列表
+                listQuery(sql, message,{json->
+                    //分析输出的结果，结果是json，里面包含数据的array    
+                    var qr=QueryResult(json)
+                    //每一行输出都做部分处理
+                    qr.loopRows { addNewsField(it) }
+                })
+            }
+        }
 
 
 上面代码中使用的**sqlMachine**是放置字段名称映射的工具类的实例，用户还是可以添加字段映射的内容。
