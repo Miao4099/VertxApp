@@ -19,7 +19,7 @@ Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。�
 set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读取的参数类型，如String,Int，Boolean等；“user_id”,"user_avatar"等是指数据表的字段名称，msg是标准的输入参数
 
 ## 4.数据库字段名称映射
-        var sql = **sqlUser.sql()
+        var sql = **sqlUser.sql()**
                 .set<String>("user_id", msg, ValId())
                 .set<String>("user_avatar", msg,ValImage("头像",true))
                 .set<String>("user_name", msg, ValName())
