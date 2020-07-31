@@ -39,7 +39,7 @@ set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读�
                 Pair("city","user_city"))
         )
         
-## 5.间接操作复杂数据的方式
+## 5.稍微复杂些的操作
 上面的第4个问题，是操作一张简单的表。如果比较复杂的数据，比如是多个数据表join查出的数据，还需要进行分页、过滤 、排序处理，也可以简单的结合使用from接口，并使用标准的过滤器、排序器、分页器解析。
 
         fun AppMySql.msgMachineList(key: String, msg: JsonObject, message: Message<JsonObject>): Msg {
