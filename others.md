@@ -19,7 +19,8 @@ Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。�
 set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读取的参数类型，如String,Int，Boolean等；“user_id”,"user_avatar"等是指数据表的字段名称，msg是标准的输入参数
 
 ## 4.数据库字段名称映射
-        var sql = **sqlUser.sql()**
+     一般来说，前端和后端的使用的字段名称是不太一样的，有的是因为设计原因、有的是故意保密。无论何种原因，后端对做这种转换是深恶痛绝的，而且会被前端的代码所影响要反复修改，前端也是面临类似的问题。
+        var sql = sqlUser.sql()
                 .set<String>("user_id", msg, ValId())
                 .set<String>("user_avatar", msg,ValImage("头像",true))
                 .set<String>("user_name", msg, ValName())
@@ -29,4 +30,9 @@ set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读�
                 .set("user_password", IDGen.md5(password!!))
                 .getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
 
-set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读取的参数类型，如String,Int，Boolean等；“user_id”,"user_avatar"等是指数据表的字段名称，msg是标准的输入参数
+上面代码中使用的**sqlUser**是放置字段名称映射的工具类的实例，其中包含2个字段的映射关系：score：index_of_score, city:user_citry, index_of_score和user_city是sql表中的字段名称，users是数据表的名称
+
+        var sqlUser=SqlBuilder("users", mapOf(
+                Pair("score","index_of_score"),
+                Pair("city","user_city"))
+        )
