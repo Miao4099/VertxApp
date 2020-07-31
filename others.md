@@ -32,7 +32,7 @@ set里包装了从json中获取数据的各种方式。set<xxx>,xxx是指要读�
                 .set("user_password", IDGen.md5(password!!))
                 .getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
 
-上面代码中使用的**sqlUser**是放置字段名称映射的工具类的实例，其中包含2个字段的映射关系：score：index_of_score, city:user_citry, index_of_score和user_city是sql表中的字段名称，users是数据表的名称
+上面代码中使用的**sqlUser**是放置字段名称映射的工具类的实例，其中包含2个字段的映射关系：score：index_of_score, city:user_citry, index_of_score和user_city是sql表中的字段名称，用户可以添加类似的内容。users是数据表的名称。
 
         var sqlUser=SqlBuilder("users", mapOf(
                 Pair("score","index_of_score"),
