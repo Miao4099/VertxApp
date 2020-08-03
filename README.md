@@ -95,7 +95,22 @@
 
 
 ## 扩展功能
-### 1.怎样增加字段校验功能  
+### 1.生成sql语句来操作一张数据表
+SqlBuilder这个类用于简化生成sql语句的工作，用户只需填入响应的字段名称，再将收到的msg传入即可，如果需要校验的话可以传入针对这个字段的校验类。       
+
+        var sql = sqlUser.sql()
+                .set<String>("user_id", msg, ValId())
+                .set<String>("user_avatar", msg,ValImage("头像",true))
+                .set<String>("user_name", msg, ValName())
+                .set<String>("user_role", msg, ValRole())
+                .set<String>("memo", msg, ValMemo())
+                .set<Int>("user_sex", msg,ValSex(true))
+                .set("user_password", IDGen.md5(password!!))
+                .getUpdate("where user_id='${msg.jsonGet<String>("user_id")}'")
+
+上面代码中使用的**sqlUser**是SqlBuilder实例，users是数据表的名称。最终生成的是update语句
+
+### 2.怎样增加字段校验功能  
   tryDo用于捕获Validator产生的异常，并输出Validator校验失败的具体原因。用户只需要根据派生Validator,自定义Valiator类并传入set接口就行，如：
   
 		open class ValSlaverKind() : Validator() {
