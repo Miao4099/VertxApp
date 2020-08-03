@@ -103,11 +103,13 @@ Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。�
                 })
                 
                 
-## 8.怎样使用RestfulXXX
-在派生HttpAgent时，重载    override fun addHandler(router: Router) {} 添加你本人需要添加的http request router，一个请求对应一个路径。如：  
+## 8.怎样使用RestfulXXX并管理访问权限
+数据中users (名字是固定的)表中的role字段定义了用户分组，前端用户的菜单、和各个接口都可以根据role来调整访问权限。使用RestfulPost、RestfulAny传入接口要求的role，RestfulPost、RestfulAny会判断比较用户的权限和这个传入的role，如果符合要求才会将请求发给模块，否则直接返回权限不足的消息。用户需要在派生HttpAgent时，重载    override fun addHandler(router: Router) {} 添加你本人需要添加的http request router，一个请求对应一个路径。如：  
             //定义编辑者权限:用户的role是admin或者editor就满足   
             
             var editorAccess=setOf("admin","editor")
+            
+            
 ### A.RestfulPost  
             //定义接收post方法的路径，默认有list/get/add/del/update 5种，最后一个参数添加了4个,也就是说
             //访问路径是http://xxx/ps/vip/add(del\get\list\update\login\logout\password\update_product)9个，同时也是
@@ -119,12 +121,8 @@ Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。�
             //路径是/ps/chart 或者/chart的满足editor权限的所有请求
             RestfulAny("/ps","/chart",router,this,"sql",editorAccess)
             
-### B.RestfulEasy
+### C.RestfulEasy
             //不检查任何权限的请求
             RestfulEasy("/ps","/chart",router,this)
 
 
-## 9.怎样对http请求增加权限管理
-  数据中users (名字是固定的)表中的role字段定义了用户分组，前端用户的菜单、和各个接口都可以根据role来调整访问权限，具体步骤如下：
-  A.接口中的，使用RestfulPost、RestfulAny传入接口要求的role，RestfulPost、RestfulAny会判断比较用户的权限和这个传入的role，如果符合要求才会将请求发给模块，否则直接返回权限不足的消息
-  B.用户菜单
