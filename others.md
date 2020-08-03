@@ -125,4 +125,15 @@ Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。�
             //不检查任何权限的请求
             RestfulEasy("/ps","/chart",router,this)
 
+## 10.怎样使用统一定时器
+在程序中经常需要定时器来完成一些任务，比如心跳、定时保存、定时任务等，开太多的定时器比较难管理代码维护也麻烦，此时可以采用TimeCenter来完成任务，里面只开了一个定时器，包括但是在每分钟、每刻钟、每小时、每天都会产生对应的定时事件可以使用。
 
+        TimeCenter.minuteChange { old, new->
+            VertMsg(Vertx()).post("config", Msg().msgId("MSG_SAVE_MILESTONE_VISIT_COUNT"))
+        }.quarterChange { old, new,i->
+            //15分钟发送一次
+            VertMsg(Vertx()).post("message", Msg().msgId("MSG_MESSAGE_SEND"))
+        }.dayChange { old, new->
+            //一天保存一次，用于后期统计
+        //    VertMsg(Vertx()).post("config", Msg().msgId("MSG_SAVE_VISIT_COUNT_DAY"))
+        }.start()
