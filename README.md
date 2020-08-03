@@ -134,8 +134,9 @@ c)可在return时返回处理过的数据，如将原始的整型数据改为字
 
 ### 其它扩展功能地址[others.md](https://github.com/Miao4099/VertxApp/blob/master/others.md "others.md")
 
-### 代码的模板之一 [sample_01](https://github.com/Miao4099/VertxApp/blob/master/sample_01 "sample_01")
-代码中完成了get/list/add/del/update 5种标准方法
+## 代码的模板   
+### 模板一 [sample_01](https://github.com/Miao4099/VertxApp/blob/master/sample_01 "sample_01")  
+代码中完成了get/list/add/del/update 5种标准方法  
 
 ## 引用声明
 为了使用方便，库中已经直接加入和引用了第三方的源代码，有清楚作者者请通知我修改如下声明：  
