@@ -141,7 +141,7 @@ Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。�
         override fun addHandler(router: Router) {
                 ...
                 
-                setBrowserHistoryPath(setOf("/shengChan","/cangChu","/info","/newdetail","/rawArticle"),"/index.html")
+                setBrowserHistoryPath(setOf("/shengChan","/info","/newdetail","/rawArticle"),"/index.html")
         }
 
         
