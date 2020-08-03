@@ -82,5 +82,25 @@ Shop是对Vertx中Verticle的封装，可以让其使用标准的json配置。�
             }
     
     
+## 7.怎样给一个Shop发送自定义消息
+在VertxApp中，http server收到的消息直接被ResfulXXX打包发动到指定的shop，如果用户自己需要定制消息发送的话参见下面的例子，其中mLoginStateReceiver是接收消息的shop的名字，第二个参数是用户按照格式要求打包的json，json中有个“json”字段存放需要shop处理的数据和参数：  
+
+        VertMsg(Vertx()).post(mLoginStateReceiver, Msg().msgId("MSG_USER_LOGIN_SUCCESS").json(Msg().add("user_id", user!!.user_id)))
+        
+如果需要发送消息后处理返回的结果，参照下面的例子：  
+
+            VertMsg(Vertx()).post("message",//接收的shop名字叫做message
+                Msg().msgId("MSG_MESSAGE_ADD") //发送的数据包
+                    .json(
+                        Msg().add("message_id", msgId)
+                            .add("message_body", msgBody)
+                            .add("send_count", resendCount)
+                            .add("valid_time", validTime)
+                    ), { rsp ->
+                    block?.invoke(true, rsp) //这里可以处理返回的rsp，json格式
+                }, { rsp ->
+                    block?.invoke(false, if (rsp.isNullOrEmpty()) "{}" else rsp) //发送失败的时候返回的rsp
+                })
+
     
     
