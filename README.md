@@ -1,4 +1,7 @@
 # VertxApp
+## 请移步到[VertxGo](https://github.com/Miao4099/VertxGo "VertxGo")
+
+
 ## 简介  
    VertxApp是Vertx的Kotlin包装，使用简单、扩展方便。这个框架是用于快速开发Web App，基于Kotlin编写，基于异步的Vertx，建立了一种应用开发模式，已将很多Vertx的细节隐藏起来，让使用者可以专注于自己的实际内容开发，而不用学习冗长的基本知识。是一个高度定制化的、适合思路清晰的开发者的一个框架。特点总结如下：  
 1.生成的最终文件是jar，包含客户应用与web server，java -jar xxx.jar 即可以全套运行，管理方便;  
