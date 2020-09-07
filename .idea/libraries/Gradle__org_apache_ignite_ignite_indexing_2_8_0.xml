@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.ignite:ignite-indexing:2.8.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/org.apache.ignite/ignite-indexing/2.8.0/4c91800a25343d214672d8f9e260120e8ce31d29/ignite-indexing-2.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/org.apache.ignite/ignite-indexing/2.8.0/7d50752c6b4d2b94f9054994970e9e08a8e75bea/ignite-indexing-2.8.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

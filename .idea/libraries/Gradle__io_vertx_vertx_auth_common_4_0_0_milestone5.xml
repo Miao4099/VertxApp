@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.vertx:vertx-auth-common:4.0.0-milestone5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-auth-common/4.0.0-milestone5/6f3756eff3e11465353807762e81181df366ad83/vertx-auth-common-4.0.0-milestone5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-auth-common/4.0.0-milestone5/503b60c4aeb2b4a82b377cc03b7ea5099c65a6f5/vertx-auth-common-4.0.0-milestone5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

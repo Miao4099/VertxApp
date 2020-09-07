@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.vertx:vertx-bridge-common:4.0.0-milestone5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-bridge-common/4.0.0-milestone5/43f8e57642bdcb580b1a733961e60b97101f5275/vertx-bridge-common-4.0.0-milestone5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-bridge-common/4.0.0-milestone5/5790d2fcfefacf9779ad49d4a73b38c72aa52f88/vertx-bridge-common-4.0.0-milestone5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.ignite:ignite-core:2.8.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/org.apache.ignite/ignite-core/2.8.0/6ed923c2d0f99cd8c6c981f475b9ace3e75eac61/ignite-core-2.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/org.apache.ignite/ignite-core/2.8.0/580fa433340f17fb2e0075717cdde5546b394848/ignite-core-2.8.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

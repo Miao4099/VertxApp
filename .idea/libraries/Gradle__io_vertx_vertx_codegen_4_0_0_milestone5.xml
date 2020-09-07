@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.vertx:vertx-codegen:4.0.0-milestone5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-codegen/4.0.0-milestone5/b1a48bd62a4b9fa6fe157b3627335b47e4c787c4/vertx-codegen-4.0.0-milestone5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-codegen/4.0.0-milestone5/4f6f7f96ae66a243f4619120457a67242ceb0752/vertx-codegen-4.0.0-milestone5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

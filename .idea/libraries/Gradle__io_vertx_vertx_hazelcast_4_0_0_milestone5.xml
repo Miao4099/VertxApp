@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.vertx:vertx-hazelcast:4.0.0-milestone5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-hazelcast/4.0.0-milestone5/9f31cda7fb48f4695cf4a6e5cd5ae29f0ccd4462/vertx-hazelcast-4.0.0-milestone5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../16.Gradle/caches/modules-2/files-2.1/io.vertx/vertx-hazelcast/4.0.0-milestone5/61008b363f3dd9b5cc7b6dd78b9d5a556dacef76/vertx-hazelcast-4.0.0-milestone5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
